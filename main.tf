@@ -1,49 +1,61 @@
 provider "aws" {
+
     region = "us-east-1"
 
   
 }
-
-
-
-module iam_group{
-    source = "./iam_group"
-    groupname =" "
-
+data "aws_iam_policy_document" "example" {
+  statement {
+    actions   = ["s3:ListAllMyBuckets"]
+    resources = ["arn:aws:s3:::*"]
+    effect = "Allow"
+  }
 }
 
-module iam_group_membership{
-    source = "./iam_group_membership"
 
-    users = " "
-    group = " "
-    membershipname = ""
 
+
+module "iam_policy"{
+    source = "./iam_policy"
+
+    policyname="newPolicy"
+    policydescription="this is a test policy"
+
+    policystring= data.aws_iam_policy_document.example.json
+    
 }
 
-module iam_policy{
-    source = "./policy"
-    policyname=""
-    policydescription=""
-    policystring=""
+module "iam_roles"{
+    source = "./iam_roles"
+    rolename="IamRole"
+    
+    //tags= ""
+
+}
+module "iam_user"{
+    source = "./iam_user"
+    username="johnbinco"
     
 
 }
-module iam_roles{
-    source = "./iam_roles"
-    rolename=""
-    tags= ""
-
-}
-module iam_user{
-    source = "./iam_user"
-    username=""
-    tags=""
-
-}
-module instance_profile{
+module "instance_profile"{
     source = "./instance_profile"
-    instanceprofilename=""
-    rolename=""
+    instanceprofilename="Instance"
+    rolename="IamRole"
+
+}
+
+module "iam_group"{
+    source = "./iam_group"
+    groupname ="IAMGroup"
+
+}
+
+module "iam_group_membership"{
+    source = "./iam_group_membership"
+
+    users = ["johnbinco"]
+    group = "IAMGroup"
+    membershipname = "IAMGroupMem"
 
 }
