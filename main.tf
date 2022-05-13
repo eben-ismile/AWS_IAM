@@ -12,6 +12,15 @@ data "aws_iam_policy_document" "example" {
   }
 }
 
+terraform {
+    backend "s3" { 
+        encrypt = true
+        bucket = "network-logfiles"
+        dynamodb_table = "tf-state-lock-dynamo"
+        key = "aws_iam/terraform.tfstate"
+        region = "us-east-1"
+    }
+}
 
 
 
