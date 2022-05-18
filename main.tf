@@ -56,7 +56,7 @@ module "instance_profile"{
 
 module "iam_group"{
     source = "./iam_group"
-    groupname ="IAMGroup"
+    groupname ="IamGroup"
 
 }
 
