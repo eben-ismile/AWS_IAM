@@ -64,7 +64,7 @@ module "iam_group_membership"{
     source = "./iam_group_membership"
 
     users = ["johnbinco"]
-    group = "IAMGroup"
-    membershipname = "IAMGroupMem"
+    group = "IamGroup"
+    membershipname = "IamGroupMem"
 
 }
