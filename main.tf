@@ -22,6 +22,12 @@ terraform {
     }
 }
 
+module "iam_group"{
+    source = "./iam_group"
+    groupname ="IamGroup"
+
+}
+
 
 
 module "iam_policy"{
@@ -54,11 +60,7 @@ module "instance_profile"{
 
 }
 
-module "iam_group"{
-    source = "./iam_group"
-    groupname ="IamGroup"
 
-}
 
 module "iam_group_membership"{
     source = "./iam_group_membership"
